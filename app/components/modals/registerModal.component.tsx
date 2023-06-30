@@ -8,7 +8,6 @@ import {
     SubmitHandler,
     useForm
 } from 'react-hook-form';
-import LoginModal from './loginModal.component';
 import useResigterModal from '@/app/hooks/useRegisterModal';
 import Modal from './modal.component';
 import Heading from '../heading/heading.component';
@@ -16,10 +15,11 @@ import Input from '../inputs/input.component';
 import { toast } from 'react-hot-toast';
 import Button from '../button/button.component';
 import { signIn } from 'next-auth/react';
+import useLoginModal from '@/app/hooks/useLoginModal';
 
 const RegisterModal = () => {
     const registerModal = useResigterModal();
-    const loginModal = useResigterModal();
+    const loginModal = useLoginModal();
     const [isLoading,setIsLoading] = useState(false);
     const {
         register,
@@ -41,18 +41,19 @@ const RegisterModal = () => {
         axios.post('/api/register', data)
             .then(()=> {
                 registerModal.onClose();
+                loginModal.onOpen();
             })
             .catch((err)=> {
                 toast.error('Something went wrong.');
             })
             .finally(() => setIsLoading(false));
     }
-    
+            
     const onToggle = useCallback(() => {
         registerModal.onClose();
         loginModal.onOpen();
-      }, [registerModal, loginModal])
-
+    }, [registerModal, loginModal]);
+    
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <Heading 
@@ -116,7 +117,7 @@ const RegisterModal = () => {
                         cursor-pointer 
                         hover:underline
                         "
-                        > Log in</span>
+                        >Log in</span>
                 </p>
             </div>
         </div>
