@@ -8,16 +8,18 @@ import {
     SubmitHandler,
     useForm
 } from 'react-hook-form';
-
+import LoginModal from './loginModal.component';
 import useResigterModal from '@/app/hooks/useRegisterModal';
 import Modal from './modal.component';
 import Heading from '../heading/heading.component';
 import Input from '../inputs/input.component';
 import { toast } from 'react-hot-toast';
 import Button from '../button/button.component';
+import { signIn } from 'next-auth/react';
 
 const RegisterModal = () => {
     const registerModal = useResigterModal();
+    const loginModal = useResigterModal();
     const [isLoading,setIsLoading] = useState(false);
     const {
         register,
@@ -45,6 +47,11 @@ const RegisterModal = () => {
             })
             .finally(() => setIsLoading(false));
     }
+    
+    const onToggle = useCallback(() => {
+        registerModal.onClose();
+        loginModal.onOpen();
+      }, [registerModal, loginModal])
 
     const bodyContent = (
         <div className="flex flex-col gap-4">
@@ -87,13 +94,13 @@ const RegisterModal = () => {
                 outline
                 label='Continue with Google'
                 icon={FcGoogle}
-                onClick={()=>{}}
+                onClick={()=> signIn('google')}
             />
             <Button 
                 outline
                 label='Continue with Github'
                 icon={AiFillGithub}
-                onClick={()=>{}}
+                onClick={()=>signIn('github')}
             />
             <div className="
                 text-neutral-500
@@ -101,16 +108,16 @@ const RegisterModal = () => {
                 mt-4
                 font-light
             ">
-                <div className="justify-center flex flex-row items-center gap-2">
-                    <div>Already have an account?</div>
-                    <div
-                        onClick={registerModal.onClose} 
+                <p>Already have an account?
+                    <span 
+                        onClick={onToggle} 
                         className="
                         text-neutral-800
-                        cursor-pointer
+                        cursor-pointer 
                         hover:underline
-                    ">Log in</div>
-                </div>
+                        "
+                        > Log in</span>
+                </p>
             </div>
         </div>
     )
