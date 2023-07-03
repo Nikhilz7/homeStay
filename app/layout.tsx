@@ -29,14 +29,17 @@ export default async function RootLayout({
     <html lang="en">
       <body className={NunSans.className}>
         <ClientOnly>
-          <ToasterProvider />
-          <RegisterModal />
-          <LoginModal />
-          <RentModal />
-          <Navbar currentUser={currentUser} />
+            <ToasterProvider />
+            <LoginModal />
+            <RegisterModal />
+            <RentModal />
+            <Navbar currentUser={currentUser} />
         </ClientOnly>
-        {children}
-        </body>
+        {/* pt-24 but goes above */}
+          <div className="pb-20 pt-36">
+              {children}
+          </div>
+      </body>
     </html>
   )
 }
