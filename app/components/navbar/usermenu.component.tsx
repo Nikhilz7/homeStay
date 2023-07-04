@@ -11,6 +11,7 @@ import MenuItem from '../menuitem/menuitem.component';
 import useResigterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import useRentModal from '@/app/hooks/useRentModal';
+import { useRouter } from 'next/navigation';
 
 interface UserMenuProps {
     currentUser?: SafeUser | null;
@@ -19,10 +20,11 @@ interface UserMenuProps {
 
 
 const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
+    const router = useRouter();
     const registerModal = useResigterModal();
     const loginModal = useLoginModal();
     const rentModal = useRentModal();
-
+    
     const [isOpen,setIsOpen] = useState(false);
 
     const toggleOpen = useCallback(()=>{
@@ -56,7 +58,7 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
                     transistion
                     cursor-pointer
                  "
-                >Your Room</div>
+                >Vacay your home</div>
                 <div
                     onClick={toggleOpen}
                     className="
@@ -108,7 +110,7 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
                         {currentUser ? (
                             <>
                                 <MenuItem
-                                    onClick={()=>{}}
+                                    onClick={()=>router.push("/trips")}
                                     label='My trips'
                                 />
                                 <MenuItem
@@ -116,7 +118,7 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
                                     label='My favorites'
                                 />
                                 <MenuItem
-                                    onClick={()=>{}}
+                                    onClick={()=>router.push("/reservations")}
                                     label='My reservations'
                                 />
                                 <MenuItem
