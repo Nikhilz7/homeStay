@@ -17,8 +17,6 @@ interface UserMenuProps {
     currentUser?: SafeUser | null;
 }
 
-
-
 const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
     const router = useRouter();
     const registerModal = useResigterModal();
@@ -122,7 +120,7 @@ const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
                                     label='My reservations'
                                 />
                                 <MenuItem
-                                    onClick={()=>{}}
+                                    onClick={()=>router.push("/properties")}
                                     label='My properties'
                                 />
                                 <MenuItem
