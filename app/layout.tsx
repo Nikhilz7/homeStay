@@ -9,6 +9,7 @@ import Navbar from './components/navbar/navbar.component';
 import RegisterModal from './components/modals/registerModal.component';
 import LoginModal from './components/modals/loginModal.component';
 import RentModal from './components/modals/rentModal.component';
+import SearchModal from './components/modals/searchModal.component';
 
 const NunSans  = Nunito_Sans({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default async function RootLayout({
         <ClientOnly>
             <ToasterProvider />
             <LoginModal />
+            <SearchModal />
             <RegisterModal />
             <RentModal />
             <Navbar currentUser={currentUser} />
